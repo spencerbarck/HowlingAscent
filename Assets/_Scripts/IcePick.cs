@@ -39,7 +39,7 @@ public class IcePick : MonoBehaviour
     }
     public void Plant()
     {
-        if (!isPlanted)
+        if (!isPlanted&&IsPickHoveringOverIce(this))
         {
             rb.velocity = Vector2.zero;
             isPlanted = true;
@@ -57,5 +57,14 @@ public class IcePick : MonoBehaviour
     public bool CheckPlanted()
     {
         return isPlanted;
+    }
+    private bool IsPickHoveringOverIce(IcePick pick)
+    {
+        RaycastHit2D hit = Physics2D.Raycast(pick.transform.position, Vector3.back, 20f, LayerMask.GetMask("Ice"));
+        if (hit.collider != null)
+        {
+            return true;
+        }
+        return false;
     }
 }
