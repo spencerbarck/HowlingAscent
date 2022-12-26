@@ -79,7 +79,8 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
         Vector2 direction = (targetPosition - (Vector2)transform.position).normalized;
-        if (Mathf.Abs(rb.transform.position.x - targetPosition.x) <= playerBodyIcePickCollisionZone)
+        if ((Mathf.Abs(rb.transform.position.x - targetPosition.x) <= playerBodyIcePickCollisionZone)
+        &&(!(leftPick.CheckPlanted() && rightPick.CheckPlanted())))
         {
             direction.x = 0;
         }
@@ -100,7 +101,7 @@ public class PlayerMovement : MonoBehaviour
     {
         IcePick[] picks = { leftPick, rightPick };
         IcePick closestPick = picks.FirstOrDefault(pick => pick.CheckPlanted());
-        return closestPick != null ? closestPick.transform.position : new Vector2(0, 0);
+        return closestPick != null ? closestPick.transform.position : new Vector2(float.MaxValue, float.MaxValue);
     }
     private Vector2 GetMiddleOfTwoPlantedPicks()
     {
@@ -110,16 +111,12 @@ public class PlayerMovement : MonoBehaviour
     private void StartFalling()
     {
         isFalling = true;
-        rightPick.LockJoint();
-        leftPick.LockJoint();
         rb.isKinematic = false;
         rb.gravityScale = 3;
     }
     private void StopFalling()
     {
         isFalling = false;
-        rightPick.UnlockJoint();
-        leftPick.UnlockJoint();
         rb.isKinematic = true;
         rb.gravityScale = 0;
     }

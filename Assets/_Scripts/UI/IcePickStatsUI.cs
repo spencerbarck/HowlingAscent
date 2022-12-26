@@ -14,9 +14,10 @@ public class IcePickStatsUI : MonoBehaviour
     {
         textMesh.transform.position = new Vector2(textMesh.transform.position.x,icePick.transform.position.y);
 
-        float distance = Mathf.Abs(player.transform.position.x - icePick.transform.position.x);
+        float distance = icePick.transform.position.x;
+        //float distance = Mathf.Abs(player.transform.position.x - icePick.transform.position.x);
         //float distance = Vector2.Distance(icePick.transform.position,icePick2.transform.position);
 
-        textMesh.text = "Distance: " + distance.ToString("F2");
+        textMesh.text = "X Position: " + distance.ToString("F2");
     }
 }

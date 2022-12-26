@@ -18,24 +18,23 @@ public class IcePick : MonoBehaviour
         joint = GetComponent<FixedJoint2D>();
         pickSprite.color = Color.red;
     }
-    public void LockJoint()
+    private void Update()
     {
-        joint.enabled = true;
-    }
-    public void UnlockJoint()
-    {
-        joint.enabled = false;
+        if(isPlanted)
+        {
+            rb.velocity = Vector2.zero;
+        }
+        Vector2 newPosition = new Vector2(
+            Mathf.Clamp(transform.position.x, playerBody.transform.position.x - armLength - armXOffset, playerBody.transform.position.x + armLength + armXOffset),
+            Mathf.Clamp(transform.position.y, playerBody.transform.position.y - armLength, playerBody.transform.position.y + armLength)
+        );
+        transform.position = newPosition;
     }
     public void MovePick()
     {
         float xInput = Input.GetAxis("Horizontal");
         float yInput = Input.GetAxis("Vertical");
         rb.velocity = new Vector2(xInput*armSpeed,yInput*armSpeed);
-        Vector2 newPosition = new Vector2(
-            Mathf.Clamp(transform.position.x, playerBody.transform.position.x - armLength - armXOffset, playerBody.transform.position.x + armLength + armXOffset),
-            Mathf.Clamp(transform.position.y, playerBody.transform.position.y - armLength, playerBody.transform.position.y + armLength)
-        );
-        transform.position = newPosition;
     }
     public void Plant()
     {
