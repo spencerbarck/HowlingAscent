@@ -25,7 +25,6 @@ public class PlayerClimbingMovement : MonoBehaviour
         }
         if(playerStatus.CheckGrounded())
         {
-            Debug.Log("IsGrounded");
             return;
         }
         if (leftPick.CheckPlanted()&&!rightPick.CheckPlanted())

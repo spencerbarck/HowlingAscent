@@ -36,12 +36,12 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
+     <Compile Include="Assets\_Scripts\PlayerGroundedMovement.cs" />
+     <Compile Include="Assets\_Scripts\PlayerStatus.cs" />
      <Compile Include="Assets\_Scripts\IcePick.cs" />
      <Compile Include="Assets\_Scripts\PlayerClimbingMovement.cs" />
      <Compile Include="Assets\_Scripts\UI\PlayerUI.cs" />
      <Compile Include="Assets\_Scripts\UI\IcePickStatsUI.cs" />
-     <Compile Include="Assets\_Scripts\PlayerStatus.cs" />
-     <Compile Include="Assets\_Scripts\PlayerGroundedMovement.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />

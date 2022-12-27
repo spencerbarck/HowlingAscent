@@ -27,6 +27,12 @@ public class IcePick : MonoBehaviour
         {
             rb.velocity = Vector2.zero;
         }
+        if(playerBody.CheckGrounded())
+        {
+            float speed = 5f;
+            transform.position = new Vector2(Mathf.Lerp(transform.position.x, playerBody.transform.position.x+playerBodyIcePickCollisionZone, Time.deltaTime * speed)
+                ,transform.position.y);
+        }
     }
     private void ClampPickPosition()
     {
