@@ -5,7 +5,7 @@ using TMPro;
 
 public class IcePickStatsUI : MonoBehaviour
 {
-    [SerializeField]private PlayerMovement player;
+    [SerializeField]private PlayerStatus player;
     [SerializeField]private IcePick icePick;
     [SerializeField]private IcePick icePick2;
     [SerializeField]private TextMeshProUGUI textMesh;
