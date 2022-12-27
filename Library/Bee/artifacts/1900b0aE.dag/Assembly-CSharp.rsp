@@ -377,6 +377,7 @@
 -r:"Library/Bee/artifacts/1900b0aE.dag/UnityEditor.UI.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aE.dag/UnityEngine.UI.ref.dll"
 "Assets/_Scripts/Anchor.cs"
+"Assets/_Scripts/AnchorSpawner.cs"
 "Assets/_Scripts/IcePick.cs"
 "Assets/_Scripts/PlayerClimbingMovement.cs"
 "Assets/_Scripts/PlayerGroundedMovement.cs"
