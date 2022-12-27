@@ -50,18 +50,17 @@ public class IcePick : MonoBehaviour
     {
         rb.velocity = new Vector2(xInput*armSpeed,yInput*armSpeed);
     }
-    public void MovePickGrounded(float xInput,float yInput)
+    public void MovePickGrounded(float xInput, float yInput)
     {
         float speed = 15f;
+        float targetX = playerBody.transform.position.x + playerBodyIcePickCollisionZone;
         transform.position = new Vector2(
-                Mathf.Lerp(transform.position.x
-                , playerBody.transform.position.x+playerBodyIcePickCollisionZone
-                , Time.deltaTime * speed)
-            ,transform.position.y
+            Mathf.Lerp(transform.position.x, targetX, Time.deltaTime * speed),
+            transform.position.y
         );
-        Vector2 newVelocity = new Vector2(xInput*armSpeed,yInput*armSpeed);
-        if(Input.GetKeyDown(KeyCode.Space))newVelocity.y*=2f;
-        rb.velocity = newVelocity;
+        yInput *= armSpeed;
+        if (Input.GetKeyDown(KeyCode.Space)) yInput *= 2f;
+        rb.velocity = new Vector2(xInput * armSpeed, yInput);
     }
     public void Plant()
     {

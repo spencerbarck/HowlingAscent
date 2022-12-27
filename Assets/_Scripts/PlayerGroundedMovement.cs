@@ -24,11 +24,12 @@ public class PlayerGroundedMovement : MonoBehaviour
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
         rb.velocity = new Vector2(horizontalInput * movementSpeed, rb.velocity.y);
-        leftPick.MovePickGrounded(horizontalInput,verticalInput);
-        rightPick.MovePickGrounded(horizontalInput,verticalInput);
         if (Input.GetKeyDown(KeyCode.Space))
         {
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         }
+        
+        leftPick.MovePickGrounded(horizontalInput,verticalInput);
+        rightPick.MovePickGrounded(horizontalInput,verticalInput);
     }
 }

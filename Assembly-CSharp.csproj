@@ -41,6 +41,7 @@
      <Compile Include="Assets\_Scripts\IcePick.cs" />
      <Compile Include="Assets\_Scripts\PlayerClimbingMovement.cs" />
      <Compile Include="Assets\_Scripts\UI\PlayerUI.cs" />
+     <Compile Include="Assets\_Scripts\Anchor.cs" />
      <Compile Include="Assets\_Scripts\UI\IcePickStatsUI.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
