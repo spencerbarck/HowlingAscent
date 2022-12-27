@@ -5,7 +5,9 @@ public class Anchor : MonoBehaviour
     private Transform followTransform;
     private LayerMask ropeCollisionMask;
     private LineRenderer lineRenderer;
-    public void InitFollow(Transform follow)
+    private DistanceJoint2D distanceJoint;
+    private Rigidbody2D rb;
+    public void InitFollow(Transform follow, Rigidbody2D rb)
     {
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.positionCount = 2;
@@ -31,7 +33,11 @@ public class Anchor : MonoBehaviour
     {
         followTransform = follow;
     }
-
+    public Rigidbody2D GetRigidBody()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        return rb;
+    }
     void Update()
     {
         lineRenderer.SetPosition(0, followTransform.position);
