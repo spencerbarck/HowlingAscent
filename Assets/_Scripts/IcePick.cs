@@ -27,12 +27,6 @@ public class IcePick : MonoBehaviour
         {
             rb.velocity = Vector2.zero;
         }
-        if(playerBody.CheckGrounded())
-        {
-            float speed = 5f;
-            transform.position = new Vector2(Mathf.Lerp(transform.position.x, playerBody.transform.position.x+playerBodyIcePickCollisionZone, Time.deltaTime * speed)
-                ,transform.position.y);
-        }
     }
     private void ClampPickPosition()
     {
@@ -56,6 +50,19 @@ public class IcePick : MonoBehaviour
     {
         rb.velocity = new Vector2(xInput*armSpeed,yInput*armSpeed);
     }
+    public void MovePickGrounded(float xInput,float yInput)
+    {
+        float speed = 15f;
+        transform.position = new Vector2(
+                Mathf.Lerp(transform.position.x
+                , playerBody.transform.position.x+playerBodyIcePickCollisionZone
+                , Time.deltaTime * speed)
+            ,transform.position.y
+        );
+        Vector2 newVelocity = new Vector2(xInput*armSpeed,yInput*armSpeed);
+        if(Input.GetKeyDown(KeyCode.Space))newVelocity.y*=2f;
+        rb.velocity = newVelocity;
+    }
     public void Plant()
     {
         if (!isPlanted&&IsOverClimbable())
@@ -71,10 +78,6 @@ public class IcePick : MonoBehaviour
             isPlanted = false;
             pickSprite.color = Color.red;
         }
-    }
-    public void Jump(float jumpForce)
-    {
-        rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
     }
     public bool CheckPlanted()
     {

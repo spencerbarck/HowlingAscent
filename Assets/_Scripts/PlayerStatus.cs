@@ -13,7 +13,7 @@ public class PlayerStatus : MonoBehaviour
         {
             return false;
         }
-        float distanceToGround = 2f;
+        float distanceToGround = 1.5f;
         RaycastHit2D hit = Physics2D.Raycast(new Vector2(transform.position.x+1,transform.position.y), Vector2.down, distanceToGround,LayerMask.GetMask("Ground"));
         if (hit.collider != null)
         {
