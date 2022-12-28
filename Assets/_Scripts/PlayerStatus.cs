@@ -6,43 +6,43 @@ public class PlayerStatus : MonoBehaviour
 {
     [SerializeField]private IcePick leftPick;
     [SerializeField]private IcePick rightPick;
-    private bool isFalling;
-    public bool CheckGrounded()
+    private IcePicksPlantState currentPicksState = IcePicksPlantState.NonePlanted;
+    public bool CheckIsGrounded()
     {
-        if (leftPick.CheckPlanted() || rightPick.CheckPlanted())
+        if (currentPicksState == IcePicksPlantState.NonePlanted)
         {
-            return false;
-        }
-        float distanceToGround = 1.5f;
-        RaycastHit2D hit = Physics2D.Raycast(new Vector2(transform.position.x+1,transform.position.y), Vector2.down, distanceToGround,LayerMask.GetMask("Ground"));
-        if (hit.collider != null)
-        {
-            return true;
-        }
-        RaycastHit2D hit2 = Physics2D.Raycast(new Vector2(transform.position.x-1,transform.position.y), Vector2.down, distanceToGround,LayerMask.GetMask("Ground"));
-        if (hit2.collider != null)
-        {
-            return true;
+            float distanceToGround = 1.5f;
+            RaycastHit2D hit1 = Physics2D.Raycast(new Vector2(transform.position.x + 1, transform.position.y), Vector2.down, distanceToGround, LayerMask.GetMask("Ground"));
+            RaycastHit2D hit2 = Physics2D.Raycast(new Vector2(transform.position.x - 1, transform.position.y), Vector2.down, distanceToGround, LayerMask.GetMask("Ground"));
+            return hit1.collider != null || hit2.collider != null;
         }
         else
         {
             return false;
         }
     }
+    private void Update()
+    {
+        currentPicksState = (leftPick.CheckPlanted() && rightPick.CheckPlanted()) ? IcePicksPlantState.BothPlanted : 
+            (!leftPick.CheckPlanted() && rightPick.CheckPlanted() || leftPick.CheckPlanted() && !rightPick.CheckPlanted()) ? IcePicksPlantState.OnePlanted : 
+            IcePicksPlantState.NonePlanted;
+    }
+    public IcePicksPlantState GetIcePicksPlantState()
+    {
+        return currentPicksState;
+    }
     public bool CheckIsPlanted()
     {
-        if(leftPick.CheckPlanted()||rightPick.CheckPlanted())
-        {
-            return true;
-        }
-        return false;
-    }
-    public void SetIsFalling(bool falling)
-    {
-        isFalling = falling;
+        return currentPicksState != IcePicksPlantState.NonePlanted;
     }
     public bool CheckIsFalling()
     {
-        return isFalling;
+        return currentPicksState == IcePicksPlantState.NonePlanted;
     }
+}
+public enum IcePicksPlantState
+{
+    OnePlanted,
+    BothPlanted,
+    NonePlanted
 }

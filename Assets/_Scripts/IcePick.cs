@@ -10,7 +10,7 @@ public class IcePick : MonoBehaviour
     private bool isPlanted = false; // whether the pick is currently planted
     private SpriteRenderer pickSprite; // the pick's sprite renderer component
     private Rigidbody2D rb; // the player's rigidbody component
-    [SerializeField] PlayerStatus playerBody;
+    [SerializeField] Transform playerBody;
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -21,6 +21,9 @@ public class IcePick : MonoBehaviour
     {
         if(!isPlanted)
         {
+            float horizontalInput = Input.GetAxis("Horizontal");
+            float verticalInput = Input.GetAxis("Vertical");
+            MovePick(horizontalInput,verticalInput);
             ClampPickPosition();
         }
         else
@@ -30,15 +33,15 @@ public class IcePick : MonoBehaviour
     }
     private void ClampPickPosition()
     {
-        float minX = playerBody.transform.position.x + playerBodyIcePickCollisionZone;
-        float maxX = playerBody.transform.position.x + armLength + armXOffset;
+        float minX = playerBody.position.x + playerBodyIcePickCollisionZone;
+        float maxX = playerBody.position.x + armLength + armXOffset;
         if (playerBodyIcePickCollisionZone < 0)
         {
-            minX = playerBody.transform.position.x - armLength - armXOffset;
-            maxX = playerBody.transform.position.x + playerBodyIcePickCollisionZone;
+            minX = playerBody.position.x - armLength - armXOffset;
+            maxX = playerBody.position.x + playerBodyIcePickCollisionZone;
         }
-        float minY = playerBody.transform.position.y - armLength;
-        float maxY = playerBody.transform.position.y + armLength;
+        float minY = playerBody.position.y - armLength;
+        float maxY = playerBody.position.y + armLength;
 
         Vector2 clampedPosition = new Vector2(
             Mathf.Clamp(transform.position.x, minX, maxX),
@@ -53,7 +56,7 @@ public class IcePick : MonoBehaviour
     public void MovePickGrounded(float xInput, float yInput)
     {
         float speed = 15f;
-        float targetX = playerBody.transform.position.x + playerBodyIcePickCollisionZone;
+        float targetX = playerBody.position.x + playerBodyIcePickCollisionZone;
         transform.position = new Vector2(
             Mathf.Lerp(transform.position.x, targetX, Time.deltaTime * speed),
             transform.position.y

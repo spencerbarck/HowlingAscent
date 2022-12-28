@@ -18,12 +18,12 @@ public class PlayerUI : MonoBehaviour
     {
         textMeshX.text = player.transform.position.x.ToString();
         textMeshY.text = player.transform.position.y.ToString();
-        ropeLength.text = anchorSpawner.distanceJoint.distance.ToString();
-        if(player.CheckGrounded()) isGroundedImage.gameObject.SetActive(true);
+        ropeLength.text = anchorSpawner.GetDistanceJoint().distance.ToString();
+        if(player.CheckIsGrounded()) isGroundedImage.gameObject.SetActive(true);
         else  isGroundedImage.gameObject.SetActive(false);
-        if(player.CheckIsFalling()) isFallingImage.gameObject.SetActive(true);
+        if(player.GetIcePicksPlantState()==IcePicksPlantState.NonePlanted) isFallingImage.gameObject.SetActive(true);
         else  isFallingImage.gameObject.SetActive(false);
-        if(player.CheckIsPlanted()) isPlantedImage.gameObject.SetActive(true);
-        else  isPlantedImage.gameObject.SetActive(false);
+        if(player.GetIcePicksPlantState()!=IcePicksPlantState.NonePlanted) isPlantedImage.gameObject.SetActive(false);
+        else  isPlantedImage.gameObject.SetActive(true);
     }
 }

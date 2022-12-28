@@ -7,14 +7,13 @@ public class AnchorSpawner : MonoBehaviour
     private PlayerStatus playerStatus;
     private List<Anchor> anchors = new List<Anchor>();
     private Rigidbody2D rb; // the player's rigidbody component
-    public DistanceJoint2D distanceJoint;
+    private DistanceJoint2D distanceJoint;
     private float ropeDistance = 10f;
     private void Start()
     {
         playerStatus = GetComponent<PlayerStatus>();
         rb = GetComponent<Rigidbody2D>();
         distanceJoint = GetComponent<DistanceJoint2D>();
-        distanceJoint.enabled = false;
     }
     private void Update()
     {
@@ -22,9 +21,11 @@ public class AnchorSpawner : MonoBehaviour
         {
             ropeDistance = Mathf.Max(ropeDistance - (2 * Time.deltaTime), 0f);
             distanceJoint.distance = ropeDistance;
-            Vector2 forceDirection = (distanceJoint.connectedBody.transform.position - transform.position).normalized;
-            rb.AddForce(forceDirection * 2);
-
+            if(Vector2.Distance(distanceJoint.connectedBody.transform.position,transform.position)>0.1f)
+            {
+                Vector2 forceDirection = (distanceJoint.connectedBody.transform.position - transform.position).normalized;
+                rb.AddForce(forceDirection * 1);
+            }
         }
         else
         {
@@ -49,6 +50,10 @@ public class AnchorSpawner : MonoBehaviour
                 anchors[0].ChangeFollow(anchors[1].transform);
             }
         }
+    }
+    public DistanceJoint2D GetDistanceJoint()
+    {
+        return distanceJoint;
     }
     private bool IsOverClimbable()
     {
