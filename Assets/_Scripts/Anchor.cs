@@ -7,7 +7,7 @@ public class Anchor : MonoBehaviour
     private LineRenderer lineRenderer;
     private DistanceJoint2D distanceJoint;
     private Rigidbody2D rb;
-    public void InitFollow(Transform follow, Rigidbody2D rb)
+    public void InitFollow(Transform follow)
     {
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.positionCount = 2;

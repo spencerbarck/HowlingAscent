@@ -29,6 +29,14 @@ public class PlayerStatus : MonoBehaviour
             return false;
         }
     }
+    public bool CheckIsPlanted()
+    {
+        if(leftPick.CheckPlanted()||rightPick.CheckPlanted())
+        {
+            return true;
+        }
+        return false;
+    }
     public void SetIsFalling(bool falling)
     {
         isFalling = falling;
