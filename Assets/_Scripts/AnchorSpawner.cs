@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Linq;
 using System.Collections.Generic;
 
 public class AnchorSpawner : MonoBehaviour
@@ -40,11 +41,14 @@ public class AnchorSpawner : MonoBehaviour
         {
             CutLine();
         }
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            AttachToAnchor();
+        }
     }
     private void SpawnAchor()
     {
         Anchor anchor = Instantiate(anchorPrefab, transform.position, Quaternion.identity);
-        anchor.InitFollow(transform);
 
         distanceJoint.enabled = true;
         distanceJoint.connectedBody = anchor.GetRigidBody();
@@ -53,6 +57,7 @@ public class AnchorSpawner : MonoBehaviour
         {
             anchors.RemoveAt(0);
         }
+        anchor.InitFollow(transform,anchors.First());
         if(anchors.Count > 1)
         {
             anchors[0].ChangeFollow(anchors[1].transform);
@@ -60,10 +65,29 @@ public class AnchorSpawner : MonoBehaviour
     }
     private void CutLine()
     {
-        anchors[anchors.Count-1].ChangeFollow(anchors[anchors.Count-1].transform);
-        if(anchors.Count>1)anchors.RemoveAt(1);
-        if(anchors[0]!=null)anchors.RemoveAt(0);
+        if(anchors.Count==0)
+        {
+            return;
+        }
+        anchors.Last().RemoveFollow();
+        anchors.Clear();
         distanceJoint.enabled = false;
+    }
+    private void AttachToAnchor()
+    {
+        Anchor[] allAnchors = FindObjectsOfType<Anchor>();
+
+        Anchor nearestAnchor = allAnchors.OrderBy(a => Vector3.Distance(a.transform.position, transform.position))
+                                         .Where(a => Vector3.Distance(a.transform.position, transform.position) <= 1f)
+                                         .FirstOrDefault();
+        if(nearestAnchor!=false)
+        {
+            CutLine();
+            distanceJoint.enabled = true;
+            distanceJoint.connectedBody = nearestAnchor.GetRigidBody();
+            anchors.Add(nearestAnchor);
+            nearestAnchor.ChangeFollow(transform);
+        }
     }
     public DistanceJoint2D GetDistanceJoint()
     {
