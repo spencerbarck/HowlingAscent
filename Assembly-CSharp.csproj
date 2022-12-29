@@ -36,11 +36,11 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Assets\_Scripts\PlayerGroundedMovement.cs" />
-     <Compile Include="Assets\_Scripts\PlayerFallingMovement.cs" />
+     <Compile Include="Assets\_Scripts\Movement Scripts\PlayerGroundedMovement.cs" />
+     <Compile Include="Assets\_Scripts\Movement Scripts\PlayerFallingMovement.cs" />
      <Compile Include="Assets\_Scripts\PlayerStatus.cs" />
      <Compile Include="Assets\_Scripts\IcePick.cs" />
-     <Compile Include="Assets\_Scripts\PlayerClimbingMovement.cs" />
+     <Compile Include="Assets\_Scripts\Movement Scripts\PlayerClimbingMovement.cs" />
      <Compile Include="Assets\_Scripts\PlayerMovementToggler.cs" />
      <Compile Include="Assets\_Scripts\IcePickInputHandler.cs" />
      <Compile Include="Assets\_Scripts\UI\PlayerUI.cs" />

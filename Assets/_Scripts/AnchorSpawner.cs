@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class AnchorSpawner : MonoBehaviour
 {
-    [SerializeField]private Anchor anchorPrefab;// List to store the last two anchors spawned
+    [SerializeField]private Anchor anchorPrefab;
     private PlayerStatus playerStatus;
     private List<Anchor> anchors = new List<Anchor>();
     private Rigidbody2D rb; // the player's rigidbody component
@@ -20,22 +20,16 @@ public class AnchorSpawner : MonoBehaviour
     {
         if(!playerStatus.CheckIsPlanted()&&Input.GetKey(KeyCode.Q))
         {
-            ropeDistance = Mathf.Max(ropeDistance - (2 * Time.deltaTime), 0f);
-            distanceJoint.distance = ropeDistance;
-            if(Vector2.Distance(distanceJoint.connectedBody.transform.position,transform.position)>0.1f)
-            {
-                Vector2 forceDirection = (distanceJoint.connectedBody.transform.position - transform.position).normalized;
-                rb.AddForce(forceDirection * 1);
-            }
+            PullBodyUpRope();
         }
         else
         {
             ropeDistance = 10f;
-            distanceJoint.distance = ropeDistance;
         }
+        distanceJoint.distance = ropeDistance;
         if (Input.GetKeyDown(KeyCode.E)&&IsOverClimbable())
         {
-            SpawnAchor();
+            SpawnAnchor();
         }
         if (Input.GetKeyDown(KeyCode.V))
         {
@@ -45,11 +39,23 @@ public class AnchorSpawner : MonoBehaviour
         {
             AttachToAnchor();
         }
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            RemoveAnchor();
+        }
     }
-    private void SpawnAchor()
+    private void PullBodyUpRope()
+    {
+        ropeDistance = Mathf.Max(ropeDistance - (2 * Time.deltaTime), 0f);
+        if(Vector2.Distance(distanceJoint.connectedBody.transform.position,transform.position)>0.1f)
+        {
+            Vector2 forceDirection = (distanceJoint.connectedBody.transform.position - transform.position).normalized;
+            rb.AddForce(forceDirection * 1);
+        }
+    }
+    private void SpawnAnchor()
     {
         Anchor anchor = Instantiate(anchorPrefab, transform.position, Quaternion.identity);
-
         distanceJoint.enabled = true;
         distanceJoint.connectedBody = anchor.GetRigidBody();
         anchors.Add(anchor);
@@ -76,7 +82,6 @@ public class AnchorSpawner : MonoBehaviour
     private void AttachToAnchor()
     {
         Anchor[] allAnchors = FindObjectsOfType<Anchor>();
-
         Anchor nearestAnchor = allAnchors.OrderBy(a => Vector3.Distance(a.transform.position, transform.position))
                                          .Where(a => Vector3.Distance(a.transform.position, transform.position) <= 1f)
                                          .FirstOrDefault();
@@ -89,13 +94,38 @@ public class AnchorSpawner : MonoBehaviour
             nearestAnchor.ChangeFollow(transform);
         }
     }
-    public DistanceJoint2D GetDistanceJoint()
+    private void RemoveAnchor()
     {
-        return distanceJoint;
+        Anchor[] allAnchors = FindObjectsOfType<Anchor>();
+        Anchor nearestAnchor = allAnchors.OrderBy(a => Vector3.Distance(a.transform.position, transform.position))
+                                         .Where(a => Vector3.Distance(a.transform.position, transform.position) <= 1f)
+                                         .FirstOrDefault();
+        if(nearestAnchor!=false)
+        {
+            if(anchors.Count>0)
+            {
+                if(nearestAnchor.Equals(anchors[0]))
+                {
+                    anchors.Remove(anchors[0]);
+                }
+            }
+            if(anchors.Count>1)
+            {
+                if(nearestAnchor.Equals(anchors[1]))
+                {
+                    anchors.Remove(anchors[1]);
+                }
+            }
+            nearestAnchor.DestoryAnchor();
+        }
     }
     private bool IsOverClimbable()
     {
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector3.back, 20f, LayerMask.GetMask("Climbable"));
         return hit.collider != null ? true : false;
+    }
+    public DistanceJoint2D GetDistanceJoint()
+    {
+        return distanceJoint;
     }
 }

@@ -1,45 +1,58 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class Anchor : MonoBehaviour
 {
     private Transform followTransform;
-    private LayerMask ropeCollisionMask;
     private LineRenderer lineRenderer;
     private DistanceJoint2D distanceJoint;
     private Rigidbody2D rb;
-    private Anchor parentAnchor;
+    private List<Anchor> anchoresAttached = new List<Anchor>();
     public void InitFollow(Transform follow, Anchor anchor)
     {
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.sortingOrder = 40;
-
-        
         lineRenderer.positionCount = 3;
         followTransform = follow;
-        parentAnchor = anchor;
-        lineRenderer.SetPosition(0, parentAnchor.transform.position);
-        lineRenderer.SetPosition(1, transform.position);
-        lineRenderer.SetPosition(2, followTransform.position);
-
-        if(FindObjectsOfType<Anchor>().Length>1)
+        Anchor parentAnchor = anchor;
+        lineRenderer.SetPositions(new Vector3[] { parentAnchor.transform.position, transform.position, followTransform.position });
+        if(FindObjectsOfType<Anchor>().Length==1)
         {
-            return;
+            SendLineToGround();
         }
-        ropeCollisionMask = LayerMask.GetMask("Ground");
+    }
+    private void SendLineToGround()
+    {
+        LayerMask ropeCollisionMask = LayerMask.GetMask("Ground");
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down,float.PositiveInfinity, ropeCollisionMask);
         if (hit.collider != null)
         {
-            lineRenderer.positionCount = 3;
             lineRenderer.SetPosition(0, hit.point);
         }
     }
     public void ChangeFollow(Transform follow)
     {
+        if(follow.gameObject.GetComponent<Anchor>()!=null)
+        {
+            anchoresAttached.Add(follow.gameObject.GetComponent<Anchor>());
+        }
         followTransform = follow;
     }
     public void RemoveFollow()
     {
         followTransform = null;
+    }
+    public void RemoveParent()
+    {
+        lineRenderer.SetPosition(0, transform.position);
+    }
+    public void DestoryAnchor()
+    {
+        foreach(Anchor anchor in anchoresAttached)
+        {
+            anchor.RemoveParent();
+        }
+        Destroy(gameObject);
     }
     public Rigidbody2D GetRigidBody()
     {
@@ -49,13 +62,6 @@ public class Anchor : MonoBehaviour
     void Update()
     {
         lineRenderer.SetPosition(1, transform.position);
-        if(followTransform!=null)
-        {
-            lineRenderer.SetPosition(2, followTransform.position);
-        }
-        else
-        {
-            lineRenderer.SetPosition(2, transform.position);
-        }
+        lineRenderer.SetPosition(2, followTransform != null ? followTransform.position : transform.position);
     }
 }
