@@ -20,7 +20,5 @@ public class PlayerGroundedMovement : MonoBehaviour
         {
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         }
-        //leftPick.MovePickGrounded(horizontalInput,verticalInput);
-        //rightPick.MovePickGrounded(horizontalInput,verticalInput);
     }
 }

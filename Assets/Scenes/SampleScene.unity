@@ -760,7 +760,7 @@ MonoBehaviour:
   armLength: 1
   armXOffset: 0.5
   playerBodyIcePickCollisionZone: 0.85
-  playerBody: {fileID: 1454845208}
+  playerBody: {fileID: 1454845211}
 --- !u!50 &297264532
 Rigidbody2D:
   serializedVersion: 4
@@ -2100,7 +2100,7 @@ MonoBehaviour:
   armLength: 1
   armXOffset: 0.5
   playerBodyIcePickCollisionZone: -0.85
-  playerBody: {fileID: 1454845208}
+  playerBody: {fileID: 1454845211}
 --- !u!50 &994101538
 Rigidbody2D:
   serializedVersion: 4
@@ -2789,7 +2789,7 @@ GameObject:
   - component: {fileID: 1454845212}
   - component: {fileID: 1454845213}
   - component: {fileID: 1454845216}
-  - component: {fileID: 1454845214}
+  - component: {fileID: 1454845218}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -2957,19 +2957,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 6
   jumpForce: 10
---- !u!114 &1454845214
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1454845206}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1267a37fb17b00040a2a76017caf0ad6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  anchorPrefab: {fileID: 8345397348683670080, guid: 51ffdd88d94b77140958230c8983eea1, type: 3}
 --- !u!232 &1454845215
 DistanceJoint2D:
   m_ObjectHideFlags: 0
@@ -3013,6 +3000,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0081e6ffa16efad4b9e7572d98815606, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1454845218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1454845206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1267a37fb17b00040a2a76017caf0ad6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anchorPrefab: {fileID: 8345397348683670080, guid: 51ffdd88d94b77140958230c8983eea1, type: 3}
 --- !u!1 &1460421593
 GameObject:
   m_ObjectHideFlags: 0
@@ -4139,7 +4139,7 @@ MonoBehaviour:
   isGroundedImage: {fileID: 221701296}
   isFallingImage: {fileID: 1688937471}
   isPlantedImage: {fileID: 40600588}
-  anchorSpawner: {fileID: 1454845214}
+  anchorSpawner: {fileID: 1454845218}
 --- !u!114 &1939127896
 MonoBehaviour:
   m_ObjectHideFlags: 0

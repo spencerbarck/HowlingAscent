@@ -34,22 +34,36 @@ public class AnchorSpawner : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.E)&&IsOverClimbable())
         {
-            Anchor anchor = Instantiate(anchorPrefab, transform.position, Quaternion.identity);
-            anchor.InitFollow(transform);
-
-            distanceJoint.enabled = true;
-            distanceJoint.connectedBody = anchor.GetRigidBody();
-
-            anchors.Add(anchor);
-            while (anchors.Count > 2)
-            {
-                anchors.RemoveAt(0);
-            }
-            if(anchors.Count > 1)
-            {
-                anchors[0].ChangeFollow(anchors[1].transform);
-            }
+            SpawnAchor();
         }
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+            CutLine();
+        }
+    }
+    private void SpawnAchor()
+    {
+        Anchor anchor = Instantiate(anchorPrefab, transform.position, Quaternion.identity);
+        anchor.InitFollow(transform);
+
+        distanceJoint.enabled = true;
+        distanceJoint.connectedBody = anchor.GetRigidBody();
+        anchors.Add(anchor);
+        while (anchors.Count > 2)
+        {
+            anchors.RemoveAt(0);
+        }
+        if(anchors.Count > 1)
+        {
+            anchors[0].ChangeFollow(anchors[1].transform);
+        }
+    }
+    private void CutLine()
+    {
+        anchors[anchors.Count-1].ChangeFollow(anchors[anchors.Count-1].transform);
+        if(anchors.Count>1)anchors.RemoveAt(1);
+        if(anchors[0]!=null)anchors.RemoveAt(0);
+        distanceJoint.enabled = false;
     }
     public DistanceJoint2D GetDistanceJoint()
     {
@@ -58,10 +72,6 @@ public class AnchorSpawner : MonoBehaviour
     private bool IsOverClimbable()
     {
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector3.back, 20f, LayerMask.GetMask("Climbable"));
-        if (hit.collider != null)
-        {
-            return true;
-        }
-        return false;
+        return hit.collider != null ? true : false;
     }
 }
