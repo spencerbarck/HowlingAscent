@@ -7,6 +7,11 @@ public class PlayerStatus : MonoBehaviour
     [SerializeField]private IcePick leftPick;
     [SerializeField]private IcePick rightPick;
     private IcePicksPlantState currentPicksState = IcePicksPlantState.NonePlanted;
+    private Rigidbody2D rb;
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+    }
     public bool CheckIsGrounded()
     {
         if (currentPicksState == IcePicksPlantState.NonePlanted)
@@ -20,6 +25,18 @@ public class PlayerStatus : MonoBehaviour
         {
             return false;
         }
+    }
+    public bool CheckIsFallingToDeath()
+    {
+        if(CheckIsGrounded())
+        {
+            if(rb.velocity.y <= -15f)
+            {
+                return true;
+            }
+            return false;
+        }
+        return false;
     }
     private void Update()
     {

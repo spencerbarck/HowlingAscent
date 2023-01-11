@@ -6,6 +6,7 @@ public class PlayerMovementToggler : MonoBehaviour
     private PlayerGroundedMovement groundedMovement; // Reference to the walking movement script
     private PlayerFallingMovement fallingMovement; // Reference to the falling movement script
     private PlayerStatus playerStatus;
+    public GameObject pauseMenuUI;
     private enum MovementState
     {
         Grounded,
@@ -22,8 +23,18 @@ public class PlayerMovementToggler : MonoBehaviour
     }
     void Update()
     {
-        currentState = playerStatus.CheckIsGrounded() ? MovementState.Grounded : (playerStatus.CheckIsFalling()
+        if((currentState == MovementState.Falling)&&(playerStatus.CheckIsFallingToDeath()))
+        {
+            currentState = MovementState.Grounded;
+            pauseMenuUI.SetActive(true);
+            Time.timeScale = 0f;
+            //Player Death
+        }
+        else
+        {
+            currentState = playerStatus.CheckIsGrounded() ? MovementState.Grounded : (playerStatus.CheckIsFalling()
              ? MovementState.Falling : MovementState.Climbing);
+        }
         switch (currentState)
         {
             case MovementState.Grounded:

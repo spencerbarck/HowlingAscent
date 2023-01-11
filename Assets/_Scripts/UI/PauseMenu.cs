@@ -8,7 +8,7 @@ public class PauseMenu : MonoBehaviour
 
     void Update() {
         if (Input.GetKeyDown(KeyCode.Escape)) {
-            if (GameIsPaused) {
+            if (pauseMenuUI.activeSelf) {
                 Resume();
             } else {
                 Pause();
@@ -17,14 +17,14 @@ public class PauseMenu : MonoBehaviour
     }
 
     void Resume() {
-    pauseMenuUI.SetActive(false);
-    Time.timeScale = 1f;
-    GameIsPaused = false;
+        pauseMenuUI.SetActive(false);
+        Time.timeScale = 1f;
+        GameIsPaused = false;
     }
 
     void Pause() {
-    pauseMenuUI.SetActive(true);
-    Time.timeScale = 0f;
-    GameIsPaused = true;
+        pauseMenuUI.SetActive(true);
+        Time.timeScale = 0f;
+        GameIsPaused = true;
     }
 }

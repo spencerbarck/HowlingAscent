@@ -10,10 +10,12 @@ public class PlayerUI : MonoBehaviour
     [SerializeField]private TextMeshProUGUI textMeshX;
     [SerializeField]private TextMeshProUGUI textMeshY;
     [SerializeField]private TextMeshProUGUI ropeLength;
+    [SerializeField]private TextMeshProUGUI playerVelocity;
     [SerializeField]private Image isGroundedImage;
     [SerializeField]private Image isFallingImage;
     [SerializeField]private Image isPlantedImage;
     [SerializeField]private AnchorSpawner anchorSpawner;
+    [SerializeField]private Rigidbody2D playerRB;
     void Update()
     {
         textMeshX.text = player.transform.position.x.ToString();
@@ -25,5 +27,7 @@ public class PlayerUI : MonoBehaviour
         else  isFallingImage.gameObject.SetActive(false);
         if(player.GetIcePicksPlantState()!=IcePicksPlantState.NonePlanted) isPlantedImage.gameObject.SetActive(false);
         else  isPlantedImage.gameObject.SetActive(true);
+        
+        playerVelocity.text = playerRB.velocity.y.ToString();
     }
 }
