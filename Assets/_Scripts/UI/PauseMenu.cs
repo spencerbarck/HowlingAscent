@@ -4,27 +4,24 @@ using System.Collections;
 public class PauseMenu : MonoBehaviour 
 {
     public static bool GameIsPaused = false;
-    public GameObject pauseMenuUI;
-
-    void Update() {
+    private void Update() {
         if (Input.GetKeyDown(KeyCode.Escape)) {
-            if (pauseMenuUI.activeSelf) {
+            if (GameMananger.Instance.GetGameState()==GameState.Paused) {
                 Resume();
-            } else {
+            } else 
+            if (GameMananger.Instance.GetGameState()==GameState.Climbing) {
                 Pause();
             }
         }
     }
 
-    void Resume() {
-        pauseMenuUI.SetActive(false);
-        Time.timeScale = 1f;
-        GameIsPaused = false;
+    private void Resume() 
+    {
+        GameMananger.Instance.ChangeGameState(GameState.Climbing);
     }
 
-    void Pause() {
-        pauseMenuUI.SetActive(true);
-        Time.timeScale = 0f;
-        GameIsPaused = true;
+    private void Pause() 
+    {
+        GameMananger.Instance.ChangeGameState(GameState.Paused);
     }
 }

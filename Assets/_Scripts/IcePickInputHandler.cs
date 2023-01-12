@@ -12,6 +12,10 @@ public class IcePickInputHandler : MonoBehaviour
     }
     private void HandlePickInput()
     {
+        if(GameMananger.Instance.GetGameState()!=GameState.Climbing)
+        {
+            return;
+        }
         if (Input.GetButtonDown("Fire1"))
         {
             leftPick.Plant();

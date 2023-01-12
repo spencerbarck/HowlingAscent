@@ -12,6 +12,14 @@ public class PlayerStatus : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
     }
+    public bool CheckHasClimbedWall(int wallSummitHeight)
+    {
+        if(transform.position.y>=wallSummitHeight)
+        {
+            return true;
+        }
+        return false;
+    }
     public bool CheckIsGrounded()
     {
         if (currentPicksState == IcePicksPlantState.NonePlanted)
