@@ -14,7 +14,7 @@ public class IcePickInputHandler : MonoBehaviour
     {
         if(GameMananger.Instance.GetGameState()!=GameState.Climbing)
         {
-            return;
+            //return;
         }
         if (Input.GetButtonDown("Fire1"))
         {

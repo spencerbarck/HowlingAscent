@@ -7,15 +7,7 @@ public class GameMananger : MonoBehaviour
     public static GameMananger Instance { get; private set; }
     private void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        Instance = this;
     }
     [SerializeField]private int wallSummitHeight;
     [SerializeField]private GameObject winMenuUI;
