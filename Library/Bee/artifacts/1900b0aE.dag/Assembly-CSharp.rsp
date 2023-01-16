@@ -389,6 +389,7 @@
 "Assets/_Scripts/UI/IcePickStatsUI.cs"
 "Assets/_Scripts/UI/MainMenuUI.cs"
 "Assets/_Scripts/UI/PauseMenu.cs"
+"Assets/_Scripts/UI/PlayerStatsUI.cs"
 "Assets/_Scripts/UI/PlayerUI.cs"
 -langversion:9.0
 
