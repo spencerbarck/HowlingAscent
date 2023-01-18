@@ -8,13 +8,14 @@ public class OneWayObsticle : MonoBehaviour
     private Color originalColor;
     private SpriteRenderer spriteRenderer;
     public bool isOpaque;
-    [SerializeField] private GameObject player;
     [SerializeField] private Color hoverColor;
+    [SerializeField] private GameObject player;
     private void Start()
     {
         oneWayCollider = GetComponent<Collider2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         originalColor = spriteRenderer.color;
+        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Ground"), LayerMask.NameToLayer("Climbable"), true);
     }
     private void Update()
     {
@@ -26,15 +27,17 @@ public class OneWayObsticle : MonoBehaviour
         {
             oneWayCollider.enabled = true;
         }
-
-        if (!isOpaque)
+        int layerMask = ~((1 << LayerMask.NameToLayer("Climbable")) | (1 << LayerMask.NameToLayer("Ground")));
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.zero, Mathf.Infinity, layerMask);
+        if (hit.collider != null)
         {
-            RaycastHit2D hit = Physics2D.Raycast(player.transform.position, Vector2.zero);
-            if (hit.collider != null && hit.collider.gameObject == gameObject)
-            {
-                spriteRenderer.color = hoverColor;
-                isOpaque = true;
-            }
+            spriteRenderer.color = hoverColor;
+            isOpaque = true;
+        }
+        else
+        {
+            spriteRenderer.color = originalColor;
+            isOpaque = false;
         }
     }
 }
