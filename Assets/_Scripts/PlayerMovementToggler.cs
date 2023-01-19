@@ -6,13 +6,13 @@ public class PlayerMovementToggler : MonoBehaviour
     private PlayerGroundedMovement groundedMovement; // Reference to the walking movement script
     private PlayerFallingMovement fallingMovement; // Reference to the falling movement script
     private PlayerStatus playerStatus;
-    private enum MovementState
+    public enum MovementState
     {
         Grounded,
         Climbing,
         Falling
     }
-    private MovementState currentState = MovementState.Falling; // The current movement state
+    public MovementState currentState = MovementState.Falling; // The current movement state
     private void Start()
     {
         climbingMovement = GetComponent<PlayerClimbingMovement>();

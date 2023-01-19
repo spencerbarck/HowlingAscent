@@ -10,6 +10,8 @@ public class OneWayObsticle : MonoBehaviour
     public bool isOpaque;
     [SerializeField] private Color hoverColor;
     [SerializeField] private GameObject player;
+    [SerializeField] private GameObject leftPick;
+    [SerializeField] private GameObject rightPick;
     private void Start()
     {
         oneWayCollider = GetComponent<Collider2D>();
@@ -17,27 +19,30 @@ public class OneWayObsticle : MonoBehaviour
         originalColor = spriteRenderer.color;
         Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Ground"), LayerMask.NameToLayer("Climbable"), true);
     }
-    private void Update()
+    private void FixedUpdate()
     {
-        if (Input.GetMouseButton(0)||Input.GetMouseButton(1))
+        if (Input.GetMouseButton(0) || Input.GetMouseButton(1)||player.transform.position.y - 1f < transform.position.y)
         {
-            oneWayCollider.enabled = false;
-        }
-        else
-        {
-            oneWayCollider.enabled = true;
-        }
-        int layerMask = ~((1 << LayerMask.NameToLayer("Climbable")) | (1 << LayerMask.NameToLayer("Ground")));
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.zero, Mathf.Infinity, layerMask);
-        if (hit.collider != null)
-        {
+            Physics2D.IgnoreCollision(oneWayCollider, player.GetComponent<Collider2D>(), true);
+            Physics2D.IgnoreCollision(oneWayCollider, leftPick.GetComponent<Collider2D>(), true);
+            Physics2D.IgnoreCollision(oneWayCollider, rightPick.GetComponent<Collider2D>(), true);
             spriteRenderer.color = hoverColor;
-            isOpaque = true;
         }
         else
         {
+            Debug.Log("Collide");
+            Physics2D.IgnoreCollision(oneWayCollider, player.GetComponent<Collider2D>(), false);
+            Physics2D.IgnoreCollision(oneWayCollider, leftPick.GetComponent<Collider2D>(), false);
+            Physics2D.IgnoreCollision(oneWayCollider, rightPick.GetComponent<Collider2D>(), false);
             spriteRenderer.color = originalColor;
-            isOpaque = false;
+        }
+        if(player.transform.position.y>transform.position.y-1&&player.transform.position.y<transform.position.y+1)
+        {
+            //spriteRenderer.color = hoverColor;
+        }
+        else
+        {
+            //spriteRenderer.color = originalColor;
         }
     }
 }

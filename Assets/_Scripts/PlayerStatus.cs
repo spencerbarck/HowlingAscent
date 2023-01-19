@@ -25,9 +25,24 @@ public class PlayerStatus : MonoBehaviour
         if (currentPicksState == IcePicksPlantState.NonePlanted)
         {
             float distanceToGround = 1.5f;
-            RaycastHit2D hit1 = Physics2D.Raycast(new Vector2(transform.position.x + 1, transform.position.y), Vector2.down, distanceToGround, LayerMask.GetMask("Ground"));
-            RaycastHit2D hit2 = Physics2D.Raycast(new Vector2(transform.position.x - 1, transform.position.y), Vector2.down, distanceToGround, LayerMask.GetMask("Ground"));
-            return hit1.collider != null || hit2.collider != null;
+            RaycastHit2D hit1 = Physics2D.Raycast(new Vector2(transform.position.x + 0.5f, transform.position.y-1f), Vector2.down, distanceToGround, LayerMask.GetMask("Ground"));
+            RaycastHit2D hit2 = Physics2D.Raycast(new Vector2(transform.position.x - 0.5f, transform.position.y-1f), Vector2.down, distanceToGround, LayerMask.GetMask("Ground"));
+            
+            if (hit1.collider != null)
+            {
+                if (hit1.point.y > transform.position.y - 1.25f&&!Physics2D.GetIgnoreCollision(hit1.collider, GetComponent<Collider2D>()))
+                {
+                    return true;
+                }
+            }
+            if (hit2.collider != null)
+            {
+                if (hit2.point.y > transform.position.y - 1.25f&&!Physics2D.GetIgnoreCollision(hit2.collider, GetComponent<Collider2D>())) 
+                {
+                    return true;
+                }
+            }
+            return false;
         }
         else
         {
@@ -51,6 +66,38 @@ public class PlayerStatus : MonoBehaviour
         currentPicksState = (leftPick.CheckPlanted() && rightPick.CheckPlanted()) ? IcePicksPlantState.BothPlanted : 
             (!leftPick.CheckPlanted() && rightPick.CheckPlanted() || leftPick.CheckPlanted() && !rightPick.CheckPlanted()) ? IcePicksPlantState.OnePlanted : 
             IcePicksPlantState.NonePlanted;
+
+        
+            float distanceToGround = 1.5f;
+
+        RaycastHit2D hit1 = Physics2D.Raycast(new Vector2(transform.position.x + 0.5f, transform.position.y-2f), Vector2.down, distanceToGround, LayerMask.GetMask("Ground"));
+            RaycastHit2D hit2 = Physics2D.Raycast(new Vector2(transform.position.x - 0.5f, transform.position.y-2f), Vector2.down, distanceToGround, LayerMask.GetMask("Ground"));
+            if (hit1.collider != null)
+            {
+                // Draw the ray in the scene view
+                Debug.DrawRay(hit1.point, Vector2.down * hit1.distance, Color.green);
+            }
+            
+            if (hit1.collider != null)
+        {
+            // Draw the ray in the scene view
+            Debug.DrawRay(hit1.point, Vector2.down * hit1.distance, Color.green);
+        }
+        else
+        {
+            // Draw the ray in the scene view
+            Debug.DrawRay(new Vector2(transform.position.x + 0.5f, transform.position.y-2f), Vector2.down * distanceToGround, Color.red);
+        }
+        if (hit2.collider != null)
+        {
+            // Draw the ray in the scene view
+            Debug.DrawRay(hit2.point, Vector2.down * hit2.distance, Color.green);
+        }
+        else
+        {
+            // Draw the ray in the scene view
+            Debug.DrawRay(new Vector2(transform.position.x - 0.5f, transform.position.y-2f), Vector2.down * distanceToGround, Color.red);
+        }
     }
     public IcePicksPlantState GetIcePicksPlantState()
     {
