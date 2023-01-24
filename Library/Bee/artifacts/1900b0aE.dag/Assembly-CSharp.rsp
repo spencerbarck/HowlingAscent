@@ -392,6 +392,8 @@
 "Assets/_Scripts/UI/PauseMenu.cs"
 "Assets/_Scripts/UI/PlayerStatsUI.cs"
 "Assets/_Scripts/UI/PlayerUI.cs"
+"Assets/_Scripts/WindManager.cs"
+"Assets/_Scripts/WindZone.cs"
 -langversion:9.0
 
 /deterministic

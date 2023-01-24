@@ -1220,6 +1220,57 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!1 &458723413
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 458723415}
+  - component: {fileID: 458723414}
+  m_Layer: 0
+  m_Name: WindMananger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &458723414
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 458723413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6e1e0d94b83f224981db0de4f8accf7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  windZonePrefab: {fileID: 1125451744590574257, guid: ece4f65f918fb7c4ea0e4e083003e44d, type: 3}
+  playerTransform: {fileID: 1454845208}
+  windIndicator: {fileID: 655617007}
+  minSpawnInterval: 2
+  maxSpawnInterval: 5
+  windForce: 10
+  windZoneSpeed: 20
+--- !u!4 &458723415
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 458723413}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 10.742294, y: -0.41367567, z: 0.2242272}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 13
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &481575529
 GameObject:
   m_ObjectHideFlags: 0
@@ -2282,7 +2333,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &655617008
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4747,6 +4798,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0081e6ffa16efad4b9e7572d98815606, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentState: 2
 --- !u!114 &1454845218
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6584,7 +6636,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1904953215
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -30,7 +30,6 @@ public class OneWayObsticle : MonoBehaviour
         }
         else
         {
-            Debug.Log("Collide");
             Physics2D.IgnoreCollision(oneWayCollider, player.GetComponent<Collider2D>(), false);
             Physics2D.IgnoreCollision(oneWayCollider, leftPick.GetComponent<Collider2D>(), false);
             Physics2D.IgnoreCollision(oneWayCollider, rightPick.GetComponent<Collider2D>(), false);
@@ -38,11 +37,11 @@ public class OneWayObsticle : MonoBehaviour
         }
         if(player.transform.position.y>transform.position.y-1&&player.transform.position.y<transform.position.y+1)
         {
-            //spriteRenderer.color = hoverColor;
+            spriteRenderer.color = hoverColor;
         }
         else
         {
-            //spriteRenderer.color = originalColor;
+            spriteRenderer.color = originalColor;
         }
     }
 }

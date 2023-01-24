@@ -12,21 +12,9 @@ public class PlayerUI : MonoBehaviour
     void Start()
     {
         player = FindObjectOfType<PlayerStatus>();
-        windWarning.SetActive(false);
-        StartCoroutine(ShowWindWarning());
     }
     void Update()
     {
         playerHeight.text = (player.transform.position.y+3).ToString("0.0");
-    }
-    IEnumerator ShowWindWarning()
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(Random.Range(1f, 15f));
-            windWarning.SetActive(true);
-            yield return new WaitForSeconds(Random.Range(1f, 10f));
-            windWarning.SetActive(false);
-        }
     }
 }
