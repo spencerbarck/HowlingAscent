@@ -66,6 +66,10 @@ public class IcePick : MonoBehaviour
     }
     public void Plant()
     {
+        if(playerBody.CheckIfPlayerIsCold())
+        {
+            return;
+        }
         if (!isPlanted&&IsOverClimbable())
         {
             isPlanted = true;

@@ -38,7 +38,7 @@ public class WindZone : MonoBehaviour
     {
         if (other.name == "Player")
         {
-            other.GetComponent<Rigidbody2D>().AddForce(windDirection * windForce);
+            other.GetComponent<PlayerStatus>().OnHitByWind();
         }
     }
 }

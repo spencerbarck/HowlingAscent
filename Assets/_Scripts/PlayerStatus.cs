@@ -8,9 +8,18 @@ public class PlayerStatus : MonoBehaviour
     [SerializeField]private IcePick rightPick;
     private IcePicksPlantState currentPicksState = IcePicksPlantState.NonePlanted;
     private Rigidbody2D rb;
+    private bool isCold;
+    private float coldDuration = 2f;
+    private float coldTimer;
     private void Start()
     {
+        isCold = false;
+        coldTimer = 0f;
         rb = GetComponent<Rigidbody2D>();
+    }
+    public bool CheckIfPlayerIsCold()
+    {
+        return isCold;
     }
     public bool CheckHasClimbedWall(int wallSummitHeight)
     {
@@ -63,9 +72,33 @@ public class PlayerStatus : MonoBehaviour
     }
     private void Update()
     {
+        if (isCold)
+        {
+            Debug.Log("Cold "+coldTimer);
+            coldTimer += Time.deltaTime;
+            if (coldTimer >= coldDuration)
+            {
+                isCold = false;
+                coldTimer = 0f;
+            }
+        }
         currentPicksState = (leftPick.CheckPlanted() && rightPick.CheckPlanted()) ? IcePicksPlantState.BothPlanted : 
             (!leftPick.CheckPlanted() && rightPick.CheckPlanted() || leftPick.CheckPlanted() && !rightPick.CheckPlanted()) ? IcePicksPlantState.OnePlanted : 
             IcePicksPlantState.NonePlanted;
+    }
+    public void OnHitByWind()
+    {
+        Debug.Log("Hit");
+        if(currentPicksState == IcePicksPlantState.OnePlanted)
+        {
+            rightPick.Release();
+            leftPick.Release();
+        }
+        if (!isCold)
+        {
+            isCold = true;
+            coldTimer = 0f;
+        }
     }
     public IcePicksPlantState GetIcePicksPlantState()
     {

@@ -41,7 +41,7 @@ public class WindManager : MonoBehaviour
         {
             // Generate random spawn position and rotation
             spawnPosition = playerTransform.position + (Random.Range(0, 2) == 0 ? Vector3.left : Vector3.right) * spawnDistance;
-            spawnPosition.y = 0f;
+            spawnPosition.y = playerTransform.position.y;
             spawnRotation = Quaternion.Euler(0f, 180f, 0f);
 
             windIndicator.SetActive(true);
