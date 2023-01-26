@@ -7,7 +7,6 @@ using TMPro;
 public class PlayerUI : MonoBehaviour
 {
     [SerializeField]private TextMeshProUGUI playerHeight;
-    [SerializeField]private GameObject windWarning;
     private PlayerStatus player;
     void Start()
     {

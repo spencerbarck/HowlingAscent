@@ -1,16 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
+using UnityEngine.Events;
 
 public class PlayerStatus : MonoBehaviour
 {
     [SerializeField]private IcePick leftPick;
     [SerializeField]private IcePick rightPick;
+    [SerializeField]private GameObject coldIndicator;
     private IcePicksPlantState currentPicksState = IcePicksPlantState.NonePlanted;
     private Rigidbody2D rb;
     private bool isCold;
     private float coldDuration = 2f;
     private float coldTimer;
+    public UnityEvent screenShake;
     private void Start()
     {
         isCold = false;
@@ -74,10 +78,10 @@ public class PlayerStatus : MonoBehaviour
     {
         if (isCold)
         {
-            Debug.Log("Cold "+coldTimer);
             coldTimer += Time.deltaTime;
             if (coldTimer >= coldDuration)
             {
+                coldIndicator.SetActive(false);
                 isCold = false;
                 coldTimer = 0f;
             }
@@ -88,7 +92,6 @@ public class PlayerStatus : MonoBehaviour
     }
     public void OnHitByWind()
     {
-        Debug.Log("Hit");
         if(currentPicksState == IcePicksPlantState.OnePlanted)
         {
             rightPick.Release();
@@ -96,8 +99,10 @@ public class PlayerStatus : MonoBehaviour
         }
         if (!isCold)
         {
+            coldIndicator.SetActive(true);
             isCold = true;
             coldTimer = 0f;
+            screenShake.Invoke();
         }
     }
     public IcePicksPlantState GetIcePicksPlantState()

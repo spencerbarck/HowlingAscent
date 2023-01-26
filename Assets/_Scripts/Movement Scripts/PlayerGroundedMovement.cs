@@ -15,7 +15,8 @@ public class PlayerGroundedMovement : MonoBehaviour
     {
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
-        rb.velocity = new Vector2(horizontalInput * movementSpeed, rb.velocity.y);
+        rb.AddForce(new Vector2(horizontalInput * movementSpeed, rb.velocity.y));
+        //rb.velocity = new Vector2(horizontalInput * movementSpeed, rb.velocity.y);
         if (Input.GetKeyDown(KeyCode.Space))
         {
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);

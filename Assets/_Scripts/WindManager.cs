@@ -16,6 +16,7 @@ public class WindManager : MonoBehaviour
     private Vector3 spawnPosition;
     private Quaternion spawnRotation;
     private float spawnDistance = 20f;
+    private float spawnYDistance = 5f;
     void Awake()
     {
         if (instance == null)
@@ -39,14 +40,12 @@ public class WindManager : MonoBehaviour
 
         if (currentSpawnInterval <= 0)
         {
-            // Generate random spawn position and rotation
             spawnPosition = playerTransform.position + (Random.Range(0, 2) == 0 ? Vector3.left : Vector3.right) * spawnDistance;
-            spawnPosition.y = playerTransform.position.y;
+            spawnPosition.y = playerTransform.position.y + Random.Range(-spawnYDistance, spawnYDistance);
             spawnRotation = Quaternion.Euler(0f, 180f, 0f);
 
             windIndicator.SetActive(true);
 
-            // Spawn wind zone at random position and rotation
             GameObject windZone = Instantiate(windZonePrefab, spawnPosition, spawnRotation);
             windZone.GetComponent<WindZone>().windForce = windForce;
             windZone.GetComponent<WindZone>().windZoneSpeed = windZoneSpeed;
