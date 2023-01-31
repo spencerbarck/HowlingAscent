@@ -10,7 +10,6 @@ public class WindZone : MonoBehaviour
     private float currentWindDuration;
     private Vector2 screenBounds;
     private Vector2 windDirection;
-    private WindZone windZone;
     private Transform windTransform;
 
     void Start()
@@ -20,27 +19,24 @@ public class WindZone : MonoBehaviour
         screenBounds = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
         windDirection = moveRight ? windTransform.right : -windTransform.right;
     }
-
     void Update()
     {
         currentWindDuration -= Time.deltaTime;
 
         windTransform.Translate(windDirection * windZoneSpeed * Time.deltaTime);
 
-        if (currentWindDuration <= 0 || Mathf.Abs(windTransform.position.x) > screenBounds.x)
+        if (currentWindDuration <= 0)
         {
             WindManager.instance.DisableWindIndicator();
             Destroy(gameObject);
         }
     }
-
     private void OnTriggerStay2D(Collider2D other)
     {
         if (other.name == "Player")
         {
-            Debug.Log("Wind Direction: "+windDirection+" - Wind Force"+windForce);
             other.GetComponent<PlayerStatus>().OnHitByWind();
-            other.GetComponent<Rigidbody2D>().AddForce(windDirection * windForce * -1, ForceMode2D.Impulse);
+            other.GetComponent<Rigidbody2D>().AddForce(windDirection * windForce, ForceMode2D.Impulse);
         }
     }
 }

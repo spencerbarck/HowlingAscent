@@ -132,7 +132,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b9ff46b80cf5c146adc3fa8fa74df7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  windForce: 10
+  windForce: 20
   windZoneSpeed: 2
   windDuration: 10
   moveRight: 1

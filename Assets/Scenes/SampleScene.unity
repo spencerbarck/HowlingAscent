@@ -1371,7 +1371,12 @@ MonoBehaviour:
   minSpawnInterval: 2
   maxSpawnInterval: 5
   windForce: 0.4
-  windZoneSpeed: 20
+  minWindZoneSpeed: 10
+  maxWindZoneSpeed: 20
+  currentSpawnInterval: 0
+  spawnPosition: {x: 0, y: 0, z: 0}
+  spawnDistance: 20
+  spawnYDistance: 5
 --- !u!4 &458723415
 Transform:
   m_ObjectHideFlags: 0
@@ -4357,7 +4362,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 319e82fe901de0d4782453955ca98f1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isOpaque: 0
   hoverColor: {r: 0.6784314, g: 0.6784314, b: 0.6784314, a: 0.49019608}
   player: {fileID: 1454845206}
   leftPick: {fileID: 994101534}
@@ -4986,7 +4990,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a67b99757458a3e4d88ca007ea903263, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 2
+  movementSpeed: 10
   jumpForce: 10
 --- !u!232 &1454845215
 DistanceJoint2D:
