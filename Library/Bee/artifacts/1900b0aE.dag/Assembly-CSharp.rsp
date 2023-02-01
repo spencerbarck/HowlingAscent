@@ -385,6 +385,7 @@
 "Assets/_Scripts/Movement Scripts/PlayerFallingMovement.cs"
 "Assets/_Scripts/Movement Scripts/PlayerGroundedMovement.cs"
 "Assets/_Scripts/OneWayObsticle.cs"
+"Assets/_Scripts/PlayerInventory.cs"
 "Assets/_Scripts/PlayerMovementToggler.cs"
 "Assets/_Scripts/PlayerStatus.cs"
 "Assets/_Scripts/UI/IcePickStatsUI.cs"

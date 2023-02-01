@@ -6,6 +6,7 @@ public class AnchorSpawner : MonoBehaviour
 {
     [SerializeField]private Anchor anchorPrefab;
     private PlayerStatus playerStatus;
+    private PlayerInventory playerInventory;
     private List<Anchor> anchors = new List<Anchor>();
     private Rigidbody2D rb; // the player's rigidbody component
     private DistanceJoint2D distanceJoint;
@@ -13,6 +14,7 @@ public class AnchorSpawner : MonoBehaviour
     private void Start()
     {
         playerStatus = GetComponent<PlayerStatus>();
+        playerInventory = GetComponent<PlayerInventory>();
         rb = GetComponent<Rigidbody2D>();
         distanceJoint = GetComponent<DistanceJoint2D>();
     }
@@ -29,7 +31,8 @@ public class AnchorSpawner : MonoBehaviour
         distanceJoint.distance = ropeDistance;
         if (Input.GetKeyDown(KeyCode.E)&&IsOverClimbable())
         {
-            SpawnAnchor();
+            if(playerInventory.RemoveAnchor())
+                SpawnAnchor();
         }
         if (Input.GetKeyDown(KeyCode.V))
         {
@@ -116,6 +119,7 @@ public class AnchorSpawner : MonoBehaviour
                     anchors.Remove(anchors[1]);
                 }
             }
+            playerInventory.AddAnchor();
             nearestAnchor.DestoryAnchor();
         }
     }

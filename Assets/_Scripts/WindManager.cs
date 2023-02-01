@@ -27,6 +27,12 @@ public class WindManager : MonoBehaviour
     [Range(1f, 20f)]
     private float maxWindZoneSpeed = 3f;
     [SerializeField]
+    [Range(1f, 10f)]
+    private float minWindZoneSize = 0.5f;
+    [SerializeField]
+    [Range(1f, 20f)]
+    private float maxWindZoneSize = 1.5f;
+    [SerializeField]
     private float currentSpawnInterval;
     [SerializeField]
     private Vector3 spawnPosition;
@@ -54,7 +60,10 @@ public class WindManager : MonoBehaviour
 
         if (currentSpawnInterval <= 0)
         {
-            spawnPosition = playerTransform.position + (Random.Range(0, 2) == 0 ? Vector3.left : Vector3.right) * spawnDistance;
+
+            float randomWindZoneSize = Random.Range(minWindZoneSize, maxWindZoneSize);
+            
+            spawnPosition = playerTransform.position + (Random.Range(0, 2) == 0 ? Vector3.left : Vector3.right) * (spawnDistance*randomWindZoneSize);
             spawnPosition.y = playerTransform.position.y + Random.Range(-spawnYDistance, spawnYDistance);
             spawnPosition.y = Mathf.Max(spawnPosition.y, -3f);
 
@@ -65,6 +74,8 @@ public class WindManager : MonoBehaviour
             windZone.GetComponent<WindZone>().windForce = windForce;
             windZone.GetComponent<WindZone>().windZoneSpeed = randomWindZoneSpeed;
             windZone.GetComponent<WindZone>().moveRight = spawnPosition.x < playerTransform.position.x;
+            windZone.transform.localScale = new Vector3(randomWindZoneSize, randomWindZoneSize, 1f);
+
             currentSpawnInterval = Random.Range(minSpawnInterval, maxSpawnInterval);
         }
     }
