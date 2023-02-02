@@ -18,7 +18,7 @@ public class Anchor : MonoBehaviour
         lineRenderer.SetPositions(new Vector3[] { parentAnchor.transform.position, transform.position, followTransform.position });
         if(FindObjectsOfType<Anchor>().Length==1)
         {
-            SendLineToGround();
+            //SendLineToGround();
         }
     }
     private void SendLineToGround()

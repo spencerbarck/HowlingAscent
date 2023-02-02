@@ -46,7 +46,7 @@ public class GameMananger : MonoBehaviour
                 break;
             case GameState.Death:
                 deathMenuUI.SetActive(true);
-                Time.timeScale = 0f;
+                //Time.timeScale = 0f;
                 break;
             case GameState.Paused:
                 pauseMenuUI.SetActive(true);

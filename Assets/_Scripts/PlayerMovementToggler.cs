@@ -22,6 +22,13 @@ public class PlayerMovementToggler : MonoBehaviour
     }
     void Update()
     {
+        if(GameMananger.Instance.GetGameState() == GameState.Death)
+        {
+            climbingMovement.enabled = false;
+            groundedMovement.enabled = false;
+            fallingMovement.enabled = false;
+            return;
+        }
         if((currentState == MovementState.Falling)&&(playerStatus.CheckIsFallingToDeath()))
         {
             GameMananger.Instance.ChangeGameState(GameState.Death);

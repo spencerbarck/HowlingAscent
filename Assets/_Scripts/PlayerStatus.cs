@@ -68,6 +68,7 @@ public class PlayerStatus : MonoBehaviour
         {
             if(rb.velocity.y <= -15f)
             {
+                screenShake.Invoke();
                 return true;
             }
             return false;
