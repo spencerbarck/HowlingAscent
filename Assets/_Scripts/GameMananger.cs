@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class GameMananger : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class GameMananger : MonoBehaviour
     {
         Instance = this;
     }
-    [SerializeField]private int wallSummitHeight;
+    private float wallSummitHeight;
     [SerializeField]private GameObject winMenuUI;
     [SerializeField]private GameObject deathMenuUI;
     [SerializeField]private GameObject pauseMenuUI;
@@ -17,6 +18,10 @@ public class GameMananger : MonoBehaviour
     private GameState currentState = GameState.Climbing; // The current game state
     private void Start()
     {
+        GameObject[] allFinishLines = GameObject.FindObjectsOfType(typeof(GameObject)).Where(obj => obj.name == "FinishLine")
+        .Select(obj => obj as GameObject)
+        .ToArray();
+        wallSummitHeight = allFinishLines.Min(obj => obj.transform.position.y);
         player = FindObjectOfType<PlayerStatus>();
     }
     private void Update()

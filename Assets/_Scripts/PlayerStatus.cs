@@ -25,7 +25,7 @@ public class PlayerStatus : MonoBehaviour
     {
         return isCold;
     }
-    public bool CheckHasClimbedWall(int wallSummitHeight)
+    public bool CheckHasClimbedWall(float wallSummitHeight)
     {
         if(transform.position.y>=wallSummitHeight)
         {
