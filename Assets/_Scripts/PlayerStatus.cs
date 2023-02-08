@@ -14,12 +14,18 @@ public class PlayerStatus : MonoBehaviour
     private bool isCold;
     private float coldDuration = 2f;
     private float coldTimer;
+    public Vector3 playerRespawnPoint;
     public UnityEvent screenShake;
     private void Start()
     {
         isCold = false;
         coldTimer = 0f;
         rb = GetComponent<Rigidbody2D>();
+        playerRespawnPoint = transform.position;
+    }
+    public void SetRespawnPoint(Vector3 respawnPoint)
+    {
+        playerRespawnPoint = respawnPoint;
     }
     public bool CheckIfPlayerIsCold()
     {

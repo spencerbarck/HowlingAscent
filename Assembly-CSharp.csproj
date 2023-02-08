@@ -55,6 +55,7 @@
      <Compile Include="Assets\_Scripts\OneWayObsticle.cs" />
      <Compile Include="Assets\_Scripts\AnchorSpawner.cs" />
      <Compile Include="Assets\_Scripts\UI\PlayerUI.cs" />
+     <Compile Include="Assets\_Scripts\Checkpoint.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />

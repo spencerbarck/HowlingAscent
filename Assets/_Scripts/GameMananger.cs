@@ -21,7 +21,8 @@ public class GameMananger : MonoBehaviour
         GameObject[] allFinishLines = GameObject.FindObjectsOfType(typeof(GameObject)).Where(obj => obj.name == "FinishLine")
         .Select(obj => obj as GameObject)
         .ToArray();
-        wallSummitHeight = allFinishLines.Min(obj => obj.transform.position.y);
+        //wallSummitHeight = allFinishLines.Min(obj => obj.transform.position.y);
+        wallSummitHeight = 1000;
         player = FindObjectOfType<PlayerStatus>();
     }
     private void Update()
