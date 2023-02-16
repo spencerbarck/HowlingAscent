@@ -32,8 +32,10 @@ public class PauseMenu : MonoBehaviour
     }
     public void RestartScene()
     {
+        Resume();
         Time.timeScale = 1f;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        FindObjectOfType<PlayerStatus>().RespawnPlayer();
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     public void LoadNextScene()
     {

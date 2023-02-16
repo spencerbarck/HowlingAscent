@@ -27,6 +27,10 @@ public class PlayerStatus : MonoBehaviour
     {
         playerRespawnPoint = respawnPoint;
     }
+    public void RespawnPlayer()
+    {
+        transform.position = playerRespawnPoint;
+    }
     public bool CheckIfPlayerIsCold()
     {
         return isCold;

@@ -18,9 +18,4 @@ public class Checkpoint : MonoBehaviour
             player.SetRespawnPoint(new Vector3(spawnPointX,spawnPointY,1));
         }
     }
-
-    public void RespawnPlayer()
-    {
-        transform.position = new Vector3(spawnPointX,spawnPointY,1);
-    }
 }
