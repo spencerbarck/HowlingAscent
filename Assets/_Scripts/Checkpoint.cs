@@ -16,7 +16,7 @@ public class Checkpoint : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             Debug.Log(spawnPointX);
-            player.SetRespawnPoint(new Vector3(spawnPointX,spawnPointY,1));
+            if(transform.position.y>player.playerRespawnPoint.y)player.SetRespawnPoint(new Vector3(spawnPointX,spawnPointY,1));
         }
     }
 }

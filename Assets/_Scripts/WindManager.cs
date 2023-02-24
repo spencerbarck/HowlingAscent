@@ -27,10 +27,10 @@ public class WindManager : MonoBehaviour
     [Range(1f, 20f)]
     private float maxWindZoneSpeed = 3f;
     [SerializeField]
-    [Range(1f, 10f)]
+    [Range(0.2f, 10f)]
     private float minWindZoneSize = 0.5f;
     [SerializeField]
-    [Range(1f, 20f)]
+    [Range(0.2f, 10f)]
     private float maxWindZoneSize = 1.5f;
     [SerializeField]
     private float currentSpawnInterval;
