@@ -12,18 +12,18 @@ public class PlayerGroundedMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
     private void Update()
-{
-    float horizontalInput = Input.GetAxis("Horizontal");
-    float horizontalSpeed = 0.0f;
-    if (horizontalInput != 0.0f)
     {
-        horizontalSpeed = horizontalInput * movementSpeed;
+        float horizontalInput = Input.GetAxis("Horizontal");
+        float horizontalSpeed = 0.0f;
+        if (horizontalInput != 0.0f)
+        {
+            horizontalSpeed = horizontalInput * movementSpeed;
+        }
+        Vector2 horizontalForce = new Vector2(horizontalSpeed - rb.velocity.x, 0);
+        rb.AddForce(horizontalForce * 5);
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+        }
     }
-    Vector2 horizontalForce = new Vector2(horizontalSpeed - rb.velocity.x, 0);
-    rb.AddForce(horizontalForce * 5);
-    if (Input.GetKeyDown(KeyCode.Space))
-    {
-        rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-    }
-}
 }

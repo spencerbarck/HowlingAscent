@@ -15,18 +15,17 @@ public class PlayerMovementToggler : MonoBehaviour
     public MovementState currentState = MovementState.Falling; // The current movement state
     private void Start()
     {
+        playerStatus = GetComponent<PlayerStatus>();
+        
         climbingMovement = GetComponent<PlayerClimbingMovement>();
         groundedMovement = GetComponent<PlayerGroundedMovement>();
         fallingMovement = GetComponent<PlayerFallingMovement>();
-        playerStatus = GetComponent<PlayerStatus>();
     }
     void Update()
     {
         if(GameMananger.Instance.GetGameState() == GameState.Death)
         {
-            climbingMovement.enabled = false;
-            groundedMovement.enabled = false;
-            fallingMovement.enabled = false;
+            DisableAllMovement();
             return;
         }
         if((currentState == MovementState.Falling)&&(playerStatus.CheckIsFallingToDeath()))
@@ -57,5 +56,11 @@ public class PlayerMovementToggler : MonoBehaviour
                 fallingMovement.enabled = true;
                 break;
         }
+    }
+    void DisableAllMovement()
+    {
+        climbingMovement.enabled = false;
+        groundedMovement.enabled = false;
+        fallingMovement.enabled = false;
     }
 }
